@@ -1,0 +1,11 @@
+.transactions-page {
+  display: grid;
+  grid-auto-rows: 1fr auto;
+  overflow: auto;
+}
+
+.transactions {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-rows: auto;
+}
