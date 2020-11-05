@@ -1,0 +1,174 @@
+[
+  {
+    "price": 5.61,
+    "symbol": "UMC",
+    "amount": 100,
+    "date": "2020-11-04T22:04:11.356Z",
+    "currency": "USD",
+    "type": "SELL",
+    "id": "24NQLM0ztXjPZ7kDq9HI"
+  },
+  {
+    "amount": 14,
+    "symbol": "NIO",
+    "date": "2020-11-04T22:06:02.520Z",
+    "type": "SELL",
+    "currency": "USD",
+    "price": 28.48,
+    "id": "2ASzBhoJehCdaORvEmcY"
+  },
+  {
+    "type": "BUY",
+    "currency": "USD",
+    "price": 5.26,
+    "symbol": "UMC",
+    "amount": 100,
+    "date": "2020-11-04T22:00:09.162Z",
+    "id": "2kuf6NVixRHPHgJQyeVN"
+  },
+  {
+    "currency": "USD",
+    "date": "2020-11-04T21:59:40.171Z",
+    "type": "BUY",
+    "symbol": "UMC",
+    "price": 5.31,
+    "amount": 100,
+    "id": "5DHviJNmXRm88vRL4cde"
+  },
+  {
+    "currency": "USD",
+    "type": "SELL",
+    "symbol": "UMC",
+    "date": "2020-11-04T22:08:47.721Z",
+    "price": 5.5,
+    "amount": 400,
+    "id": "6OM0KL90wtzvmxiK5s10"
+  },
+  {
+    "type": "BUY",
+    "price": 5.6,
+    "currency": "USD",
+    "date": "2020-11-04T22:04:23.059Z",
+    "amount": 100,
+    "symbol": "UMC",
+    "id": "9bLKoD72Kq5ytv9Ac0dr"
+  },
+  {
+    "date": "2020-11-04T22:00:27.859Z",
+    "amount": 100,
+    "type": "WITHDRAW",
+    "currency": "USD",
+    "id": "9o9rkjzQveq1b7jDDPvv"
+  },
+  {
+    "currency": "USD",
+    "type": "SELL",
+    "symbol": "COTY",
+    "date": "2020-11-04T22:05:04.220Z",
+    "amount": 100,
+    "price": 3.35,
+    "id": "AJphiVTECFuKVEwdc1Km"
+  },
+  {
+    "currency": "USD",
+    "amount": 400,
+    "type": "DEPOSIT",
+    "date": "2020-11-04T21:58:54.390Z",
+    "id": "C4ozuy0xP1wBdvLAzv5d"
+  },
+  {
+    "currency": "USD",
+    "date": "2020-11-04T22:03:28.220Z",
+    "price": 18.7,
+    "symbol": "PLUG",
+    "type": "BUY",
+    "amount": 45,
+    "id": "FEb02YLc70mWS0RHVDCy"
+  },
+  {
+    "date": "2020-11-04T22:01:37.749Z",
+    "type": "BUY",
+    "amount": 100,
+    "currency": "USD",
+    "price": 5.7,
+    "symbol": "UMC",
+    "id": "HW7ZOHZfCXa2S1yxgFJq"
+  },
+  {
+    "price": 3.75,
+    "symbol": "COTY",
+    "amount": 100,
+    "date": "2020-11-04T22:02:31.001Z",
+    "type": "BUY",
+    "currency": "USD",
+    "id": "NYblBzUW65TDSP8RkmfT"
+  },
+  {
+    "currency": "USD",
+    "type": "BUY",
+    "symbol": "UMC",
+    "amount": 100,
+    "price": 5.28,
+    "date": "2020-11-04T22:08:20.097Z",
+    "id": "Nm0pThVw2NvXbQs1kbMX"
+  },
+  {
+    "amount": 500,
+    "type": "DEPOSIT",
+    "date": "2020-11-04T22:00:22.091Z",
+    "currency": "USD",
+    "id": "SguVcIwzkN1ACvbHSxnm"
+  },
+  {
+    "date": "2020-11-04T22:07:25.965Z",
+    "currency": "USD",
+    "symbol": "AMD",
+    "price": 77.87,
+    "amount": 15,
+    "type": "SELL",
+    "id": "YHkrxqxwqeO92Llm1Vpz"
+  },
+  {
+    "amount": 15,
+    "symbol": "AMD",
+    "price": 82.12,
+    "type": "BUY",
+    "date": "2020-11-04T22:07:03.290Z",
+    "currency": "USD",
+    "id": "YK1xZLXR5HOWvLEbtQGV"
+  },
+  {
+    "symbol": "NIO",
+    "currency": "USD",
+    "amount": 14,
+    "type": "BUY",
+    "date": "2020-11-04T22:05:35.105Z",
+    "price": 29.14,
+    "id": "cG9yQo7Z9XPQd7nQAkkQ"
+  },
+  {
+    "type": "DEPOSIT",
+    "currency": "USD",
+    "date": "2020-11-04T22:00:53.914Z",
+    "amount": 500,
+    "id": "eMDKGaSTXWSCi0m40Faw"
+  },
+  {
+    "amount": 100,
+    "date": "2020-11-04T22:08:26.492Z",
+    "type": "BUY",
+    "currency": "USD",
+    "symbol": "UMC",
+    "price": 5.23,
+    "id": "fET05Vm9ZQ5Msz980LSx"
+  },
+  {
+    "date": "2020-11-04T22:09:42.597Z",
+    "price": 15.98,
+    "type": "BUY",
+    "symbol": "PLUG",
+    "amount": 100,
+    "currency": "USD",
+    "id": "fr1gDDo5NO0wBU2HboKi"
+  }
+]

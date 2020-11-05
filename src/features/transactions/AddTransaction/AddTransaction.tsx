@@ -23,7 +23,7 @@ export function AddTransaction(props: AddTransactionProps) {
   const [type, setType] = useState<TTransaction['type']>('DEPOSIT');
   const types: Array<TTransaction['type']> = ['DEPOSIT', 'WITHDRAW', 'BUY', 'SELL'];
 
-  const [currency, setCurrency] = useState<TTransaction['currency']>('EUR');
+  const [currency, setCurrency] = useState<TTransaction['currency']>('USD');
   const currencies: Array<TCurrency> = ['EUR', 'USD'];
 
   const [amount, setAmount] = useState(0);
@@ -41,7 +41,7 @@ export function AddTransaction(props: AddTransactionProps) {
         props.onSubmit({
           type,
           currency,
-          date: new Date().toISOString(),
+          date: new Date(),
           amount,
         });
         break;
@@ -50,7 +50,7 @@ export function AddTransaction(props: AddTransactionProps) {
         props.onSubmit({
           type,
           currency,
-          date: new Date().toISOString(),
+          date: new Date(),
           amount,
           symbol,
           price,

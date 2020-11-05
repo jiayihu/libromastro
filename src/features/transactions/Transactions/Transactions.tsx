@@ -1,24 +1,28 @@
 import './Transactions.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'reactstrap';
 import { getTransactions, postTransaction } from '../../../services/transactions';
-import { TTransaction, TTransactionPayload } from '../../../types/transaction';
+import { TTransactionPayload } from '../../../types/transaction';
 import { Placeholder } from '../../../ui/Placeholder/Placeholder';
 import { AddTransaction } from '../AddTransaction/AddTransaction';
 import { Transaction } from '../Transaction/Transaction';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTransactions } from '../../../store/actions/transactions.actions';
+import { selectTransactions } from '../../../store/reducers';
 
 export function Transactions() {
-  const [transactions, setTransactions] = useState<null | TTransaction[]>(null);
+  const dispatch = useDispatch();
+  const transactions = useSelector(selectTransactions);
 
   useEffect(() => {
     getTransactions().then((transactions) => {
-      setTransactions(transactions);
+      dispatch(setTransactions(transactions));
     });
-  }, []);
+  }, [dispatch]);
 
   const handleAddTransaction = (transaction: TTransactionPayload) => {
     postTransaction(transaction).then((result) => {
-      if (result) setTransactions([result, ...transactions]);
+      if (result) dispatch(setTransactions([result, ...transactions]));
     });
   };
 
@@ -29,7 +33,7 @@ export function Transactions() {
           {() => (
             <div className="transactions">
               {transactions?.map((transaction) => (
-                <Transaction transaction={transaction} key={transaction.date} />
+                <Transaction transaction={transaction} key={transaction.id} />
               ))}
             </div>
           )}

@@ -2,18 +2,18 @@ import React from 'react';
 import { assertNever } from '../../utils';
 
 export type DatetimeProps = {
-  children: string;
+  children: Date;
   type: 'date' | 'time' | 'datetime';
 };
 
-const formatDate = (type: 'date' | 'time' | 'datetime', date: string) => {
+const formatDate = (type: 'date' | 'time' | 'datetime', date: Date) => {
   switch (type) {
     case 'date':
-      return new Date(date).toLocaleDateString();
+      return date.toLocaleDateString();
     case 'time':
-      return new Date(date).toLocaleTimeString();
+      return date.toLocaleTimeString();
     case 'datetime':
-      return new Date(date).toLocaleString();
+      return date.toLocaleString();
     default:
       assertNever(type);
   }

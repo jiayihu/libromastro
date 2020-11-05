@@ -3,7 +3,7 @@ import React from 'react';
 import { isStockTransaction, TTransaction } from '../../../types/transaction';
 import { Currency } from '../../../ui/Currency/Currency';
 import { Datetime } from '../../../ui/Datetime/Datetime';
-import { TickerLogo } from '../../ticker/TickerLogo/TickerLogo';
+import { StockLogo } from '../../stock/StockLogo/StockLogo';
 import bankTransactionImg from 'bootstrap-icons/icons/arrow-left-right.svg';
 
 export type TransactionProps = {
@@ -16,16 +16,9 @@ export function Transaction(props: TransactionProps) {
   return (
     <div className="transaction">
       {isStockTransaction(transaction) ? (
-        <TickerLogo
-          symbol={transaction.symbol}
-          className="rounded-lg shadow"
-          alt={transaction.symbol}
-          width="50"
-        />
+        <StockLogo className="shadow" symbol={transaction.symbol} alt={transaction.symbol} />
       ) : (
-        <div className="text-center">
-          <img src={bankTransactionImg} alt="" width="24" />
-        </div>
+        <img src={bankTransactionImg} alt="" width="24" />
       )}
       <div>
         {isStockTransaction(transaction) ? (
@@ -49,6 +42,7 @@ export function Transaction(props: TransactionProps) {
       </div>
       <div className="text-right">
         <div className="h6">
+          {transaction.type === 'DEPOSIT' || transaction.type === 'SELL' ? '+' : '-'}{' '}
           <Currency name={transaction.currency}>
             {isStockTransaction(transaction)
               ? transaction.price * transaction.amount

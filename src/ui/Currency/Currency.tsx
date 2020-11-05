@@ -24,6 +24,7 @@ export function Currency(props: CurrencyProps) {
       {props.children !== undefined
         ? props.children?.toLocaleString(undefined, {
             style: 'currency',
+            currencyDisplay: 'narrowSymbol',
             currency: props.name,
           })
         : currencyToString(props.name)}

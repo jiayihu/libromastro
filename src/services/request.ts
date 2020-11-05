@@ -1,4 +1,8 @@
-export function requestIEXCloud<T>(resource: string, options?: RequestInit): Promise<T> {
+export function requestIEXCloud<T = any>(
+  resource: string,
+  query: URLSearchParams = new URLSearchParams(),
+  options?: RequestInit,
+): Promise<T> {
   const API_KEY = process.env.REACT_APP_IEXCLOUD_KEY;
   const BASE_URL = `https://cloud.iexapis.com/stable`;
   const headers = new Headers();
@@ -7,7 +11,9 @@ export function requestIEXCloud<T>(resource: string, options?: RequestInit): Pro
     headers.set('Content-Type', 'application/json');
   }
 
-  return fetch(`${BASE_URL}${resource}?token=${API_KEY}`, {
+  query.set('token', API_KEY!);
+
+  return fetch(`${BASE_URL}${resource}?${query.toString()}`, {
     mode: 'cors',
     headers,
     ...options,
