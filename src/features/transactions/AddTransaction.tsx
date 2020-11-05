@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TCurrency, TTransaction, TTransactionPayload } from '../../../types/transaction';
+import { TCurrency, TTransaction, TTransactionPayload } from '../../types/transaction';
 import {
   Button,
   Col,
@@ -12,8 +12,8 @@ import {
   InputGroupText,
   Row,
 } from 'reactstrap';
-import { Currency } from '../../../ui/Currency/Currency';
-import { assertNever } from '../../../utils';
+import { Currency } from '../../ui/Currency';
+import { assertNever } from '../../utils';
 
 export type AddTransactionProps = {
   onSubmit: (transaction: TTransactionPayload) => void;

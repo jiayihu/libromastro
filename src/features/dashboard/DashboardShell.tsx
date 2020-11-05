@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'reactstrap';
-import { getTransactions } from '../../../services/transactions';
-import { setTransactions } from '../../../store/actions/transactions.actions';
-import { selectCurrency, selectTransactions } from '../../../store/reducers';
-import { Placeholder } from '../../../ui/Placeholder/Placeholder';
-import { Dashboard } from '../Dashboard/Dashboard';
+import { getTransactions } from '../../services/transactions';
+import { setTransactions } from '../../store/actions/transactions.actions';
+import { selectCurrency, selectTransactions } from '../../store/reducers';
+import { Placeholder } from '../../ui/Placeholder';
+import { Dashboard } from './Dashboard';
 
 export function DashboardShell() {
   const dispatch = useDispatch();

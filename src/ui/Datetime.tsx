@@ -1,5 +1,5 @@
 import React from 'react';
-import { assertNever } from '../../utils';
+import { assertNever } from '../utils';
 
 export type DatetimeProps = {
   children: Date;

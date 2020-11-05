@@ -1,9 +1,9 @@
 import './App.css';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Transactions } from '../features/transactions/Transactions/Transactions';
-import { Navigation } from '../features/navigation/Navigation/Navigation';
-import { DashboardShell } from '../features/dashboard/DashboardShell/DashboardShell';
+import { Transactions } from '../features/transactions/Transactions';
+import { Navigation } from '../features/navigation/Navigation';
+import { DashboardShell } from '../features/dashboard/DashboardShell';
 
 export function App() {
   return (

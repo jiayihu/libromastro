@@ -1,6 +1,6 @@
 import React from 'react';
-import { TCurrency } from '../../types/transaction';
-import { assertNever } from '../../utils';
+import { TCurrency } from '../types/transaction';
+import { assertNever } from '../utils';
 
 export type CurrencyProps = {
   name: TCurrency;

@@ -1,6 +1,5 @@
-import './StockLogo.css';
 import React from 'react';
-import classnames from 'classnames';
+import { css, cx } from 'emotion';
 
 export type StockLogoProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   symbol: string;
@@ -8,15 +7,29 @@ export type StockLogoProps = React.ImgHTMLAttributes<HTMLImageElement> & {
 
 export function StockLogo(props: StockLogoProps) {
   const { symbol, className, ...divProps } = props;
-  const cn = classnames('stock-logo', className);
+  const cn = cx(wrapperStyle, className);
 
   return (
     <div className={cn} {...divProps}>
       <img
-        className="stock-logo__img"
+        className={imgStyle}
         src={`https://storage.googleapis.com/iex/api/logos/${symbol}.png`}
         alt={symbol}
       />
     </div>
   );
 }
+
+const wrapperStyle = css({
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  height: 50,
+  overflow: 'hidden',
+  textAlign: 'center',
+  width: 50,
+});
+
+const imgStyle = css({
+  width: '75%',
+});

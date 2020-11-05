@@ -1,6 +1,0 @@
-.stock-status-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-auto-flow: row;
-  padding-top: 2rem;
-}

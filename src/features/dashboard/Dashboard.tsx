@@ -1,7 +1,7 @@
-import './Dashboard.css';
 import React, { useEffect, useMemo, useState } from 'react';
-import { getStockQuotes } from '../../../services/stock';
-import { TStockQuotesMap } from '../../../types/stock';
+import { css } from 'emotion';
+import { getStockQuotes } from '../../services/stock';
+import { TStockQuotesMap } from '../../types/stock';
 import {
   calculateDeposit,
   calculateLiquidity,
@@ -10,11 +10,11 @@ import {
   isBankTransaction,
   isStockTransaction,
   TTransaction,
-} from '../../../types/transaction';
-import { CurrentCurrency } from '../../../ui/CurrentCurrency/CurrentCurrency';
-import { Placeholder } from '../../../ui/Placeholder/Placeholder';
-import { SignedValue } from '../../../ui/SignedValue/SignedValue';
-import { StockStatus } from '../../stock/StockStatus/StockStatus';
+} from '../../types/transaction';
+import { CurrentCurrency } from '../../ui/CurrentCurrency';
+import { Placeholder } from '../../ui/Placeholder';
+import { SignedValue } from '../../ui/SignedValue';
+import { StockStatus } from '../stock/StockStatus';
 
 export type DashboardProps = {
   transactions: TTransaction[];
@@ -69,11 +69,18 @@ export const Dashboard = React.memo(function Dashboard(props: DashboardProps) {
         Liquidity: <CurrentCurrency>{liquidity}</CurrentCurrency>
       </div>
 
-      <div className="stock-status-list">
+      <div className={listStyle}>
         {nonZeroStockStatus.map((status) => (
           <StockStatus status={status} quote={quotes[status.symbol]} />
         ))}
       </div>
     </div>
   );
+});
+
+const listStyle = css({
+  display: 'grid',
+  gap: '1.5rem',
+  gridAutoFlow: 'row',
+  paddingTop: '2rem',
 });

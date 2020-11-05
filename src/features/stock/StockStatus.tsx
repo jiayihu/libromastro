@@ -1,10 +1,10 @@
-import './StockStatus.css';
 import React from 'react';
-import { TStockQuote } from '../../../types/stock';
-import { TStockStatus } from '../../../types/transaction';
-import { CurrentCurrency } from '../../../ui/CurrentCurrency/CurrentCurrency';
-import { SignedValue } from '../../../ui/SignedValue/SignedValue';
-import { StockLogo } from '../StockLogo/StockLogo';
+import { css } from 'emotion';
+import { TStockQuote } from '../../types/stock';
+import { TStockStatus } from '../../types/transaction';
+import { CurrentCurrency } from '../../ui/CurrentCurrency';
+import { SignedValue } from '../../ui/SignedValue';
+import { StockLogo } from './StockLogo';
 
 export type StockStatusProps = {
   status: TStockStatus;
@@ -19,7 +19,7 @@ export const StockStatus = React.memo(function StockStatus(props: StockStatusPro
 
   return (
     <div className="stock-status bg-white shadow rounded">
-      <div className="stock-status__titlebar">
+      <div className={titlebarStyle}>
         <StockLogo className="bg-light" symbol={status.symbol} />
         <div>
           <div className="font-weight-bold">{quote.companyName}</div>
@@ -52,4 +52,11 @@ export const StockStatus = React.memo(function StockStatus(props: StockStatusPro
       </div>
     </div>
   );
+});
+
+const titlebarStyle = css({
+  display: 'grid',
+  gap: '1rem',
+  gridTemplateColumns: 'auto 1fr auto',
+  padding: '1rem',
 });

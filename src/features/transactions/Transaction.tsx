@@ -1,9 +1,9 @@
-import './Transaction.css';
 import React from 'react';
-import { isStockTransaction, TTransaction } from '../../../types/transaction';
-import { Currency } from '../../../ui/Currency/Currency';
-import { Datetime } from '../../../ui/Datetime/Datetime';
-import { StockLogo } from '../../stock/StockLogo/StockLogo';
+import { css } from 'emotion';
+import { isStockTransaction, TTransaction } from '../../types/transaction';
+import { Currency } from '../../ui/Currency';
+import { Datetime } from '../../ui/Datetime';
+import { StockLogo } from '../stock/StockLogo';
 import bankTransactionImg from 'bootstrap-icons/icons/arrow-left-right.svg';
 
 export type TransactionProps = {
@@ -14,11 +14,13 @@ export function Transaction(props: TransactionProps) {
   const { transaction } = props;
 
   return (
-    <div className="transaction">
+    <div className={wrapperStyle}>
       {isStockTransaction(transaction) ? (
-        <StockLogo className="shadow" symbol={transaction.symbol} alt={transaction.symbol} />
+        <StockLogo className="bg-light" symbol={transaction.symbol} alt={transaction.symbol} />
       ) : (
-        <img src={bankTransactionImg} alt="" width="24" />
+        <div className="bg-light rounded text-center">
+          <img src={bankTransactionImg} alt="" width="24" />
+        </div>
       )}
       <div>
         {isStockTransaction(transaction) ? (
@@ -56,3 +58,10 @@ export function Transaction(props: TransactionProps) {
     </div>
   );
 }
+
+const wrapperStyle = css({
+  alignItems: 'center',
+  display: 'grid',
+  gap: '1.5rem',
+  gridTemplateColumns: '1fr 2fr 2fr',
+});

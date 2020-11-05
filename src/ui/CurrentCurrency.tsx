@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectCurrency } from '../../store/reducers';
-import { Currency, CurrencyProps } from '../Currency/Currency';
+import { selectCurrency } from '../store/reducers';
+import { Currency, CurrencyProps } from './Currency';
 
 export type CurrentCurrencyProps = Omit<CurrencyProps, 'name'>;
 
