@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { css } from 'emotion';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'reactstrap';
 import { getTransactions } from '../../services/transactions';
@@ -25,7 +26,7 @@ export function DashboardShell() {
   const currencyTrans = transactions.filter((t) => t.currency === currency);
 
   return (
-    <Container className="py-3 overflow-auto">
+    <Container className={css({ paddingTop: '1rem', paddingBottom: '1rem', overflow: 'auto' })}>
       <Dashboard transactions={currencyTrans} />
     </Container>
   );

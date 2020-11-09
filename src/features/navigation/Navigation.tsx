@@ -8,7 +8,7 @@ export type NavigationProps = {};
 
 export function Navigation(_: NavigationProps) {
   return (
-    <Navbar className="bg-white" color="light" light>
+    <Navbar className={css({ backgroundColor: 'var(--light)' })} color="light" light>
       <Nav navbar className={navStyle}>
         <NavItem>
           <NavLink className="nav-link" to="/" exact>

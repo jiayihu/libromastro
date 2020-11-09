@@ -57,9 +57,11 @@ export const Dashboard = React.memo(function Dashboard(props: DashboardProps) {
   return (
     <div>
       <div className="">Total balance</div>
-      <div className="h3 my-2">
-        <CurrentCurrency>{balance}</CurrentCurrency>
-        <SignedValue value={profit} className="h6 ml-2">
+      <div className={css({ fontSize: '1.75rem', margin: '0.5rem 0' })}>
+        <strong>
+          <CurrentCurrency>{balance}</CurrentCurrency>
+        </strong>
+        <SignedValue value={profit} className={css({ fontSize: '1rem', marginLeft: '0.5rem' })}>
           <CurrentCurrency>{profit}</CurrentCurrency>
         </SignedValue>
       </div>
@@ -71,7 +73,7 @@ export const Dashboard = React.memo(function Dashboard(props: DashboardProps) {
 
       <div className={listStyle}>
         {nonZeroStockStatus.map((status) => (
-          <StockStatus status={status} quote={quotes[status.symbol]} />
+          <StockStatus status={status} quote={quotes[status.symbol]} key={status.symbol} />
         ))}
       </div>
     </div>

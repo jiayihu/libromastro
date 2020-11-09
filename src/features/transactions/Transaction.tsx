@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { isStockTransaction, TTransaction } from '../../types/transaction';
 import { Currency } from '../../ui/Currency';
 import { Datetime } from '../../ui/Datetime';
@@ -8,25 +8,32 @@ import bankTransactionImg from 'bootstrap-icons/icons/arrow-left-right.svg';
 
 export type TransactionProps = {
   transaction: TTransaction;
+  onSelect: (transaction: TTransaction) => void;
 };
 
 export function Transaction(props: TransactionProps) {
-  const { transaction } = props;
+  const { transaction, onSelect } = props;
 
   return (
-    <div className={wrapperStyle}>
+    <div className={wrapperStyle} onClick={() => onSelect(transaction)}>
       {isStockTransaction(transaction) ? (
-        <StockLogo className="bg-light" symbol={transaction.symbol} alt={transaction.symbol} />
+        <StockLogo
+          className={css({ backgroundColor: 'var(--light)' })}
+          symbol={transaction.symbol}
+          alt={transaction.symbol}
+        />
       ) : (
-        <div className="bg-light rounded text-center">
+        <div className={bankLogoStyle}>
           <img src={bankTransactionImg} alt="" width="24" />
         </div>
       )}
       <div>
         {isStockTransaction(transaction) ? (
           <>
-            <div className="font-weight-bold">
-              {transaction.type} {transaction.symbol}
+            <div className={css({ fontWeight: 'bold' })}>
+              <strong>
+                {transaction.type} {transaction.symbol}
+              </strong>
             </div>
             <div>
               {transaction.amount} shares,{' '}
@@ -35,14 +42,14 @@ export function Transaction(props: TransactionProps) {
           </>
         ) : (
           <>
-            <div className="font-weight-bold">{transaction.type}</div>
+            <div className={css({ fontWeight: 'bold' })}>{transaction.type}</div>
             <div>
               <Currency name={transaction.currency}>{transaction.amount}</Currency>
             </div>
           </>
         )}
       </div>
-      <div className="text-right">
+      <div className={css({ textAlign: 'right' })}>
         <div className="h6">
           {transaction.type === 'DEPOSIT' || transaction.type === 'SELL' ? '+' : '-'}{' '}
           <Currency name={transaction.currency}>
@@ -64,4 +71,15 @@ const wrapperStyle = css({
   display: 'grid',
   gap: '1.5rem',
   gridTemplateColumns: '1fr 2fr 2fr',
+});
+
+const bankLogoStyle = css({
+  alignItems: 'center',
+  backgroundColor: 'var(--light)',
+  borderRadius: '0.25rem',
+  display: 'flex',
+  justifyContent: 'center',
+  height: 50,
+  textAlign: 'center',
+  width: 50,
 });

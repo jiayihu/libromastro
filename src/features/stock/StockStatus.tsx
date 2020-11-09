@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 import { TStockQuote } from '../../types/stock';
 import { TStockStatus } from '../../types/transaction';
 import { CurrentCurrency } from '../../ui/CurrentCurrency';
@@ -18,11 +18,15 @@ export const StockStatus = React.memo(function StockStatus(props: StockStatusPro
   const profit = balance - cost;
 
   return (
-    <div className="stock-status bg-white shadow rounded">
+    <div
+      className={cx(css({ backgroundColor: 'var(--white)', borderRadius: '0.25rem' }), 'shadow')}
+    >
       <div className={titlebarStyle}>
-        <StockLogo className="bg-light" symbol={status.symbol} />
+        <StockLogo className={css({ backgroundColor: 'var(--light)' })} symbol={status.symbol} />
         <div>
-          <div className="font-weight-bold">{quote.companyName}</div>
+          <div>
+            <strong>{quote.companyName}</strong>
+          </div>
           <div>{status.symbol.toUpperCase()}</div>
         </div>
         <div>
@@ -36,18 +40,18 @@ export const StockStatus = React.memo(function StockStatus(props: StockStatusPro
           </div>
         </div>
       </div>
-      <div className="border-top px-3 pt-3 pb-1 d-flex justify-content-around">
+      <div className={statsStyle}>
         <span>
-          Shares: <span className="font-weight-bold">{status.amount}</span>
+          Shares: <strong>{status.amount}</strong>
         </span>
         <span>
-          Avg price: <span className="font-weight-bold">{status.averagePrice}</span>
+          Avg price: <strong>{status.averagePrice}</strong>
         </span>
         <span>
-          Price: <span className="font-weight-bold">{quote.latestPrice}</span>
+          Price: <strong>{quote.latestPrice}</strong>
         </span>
       </div>
-      <div className="px-3 pb-1 text-right">
+      <div className={css({ padding: '0 1rem 0.5rem', textAlign: 'right' })}>
         <div className="small">({quote.latestSource})</div>
       </div>
     </div>
@@ -59,4 +63,11 @@ const titlebarStyle = css({
   gap: '1rem',
   gridTemplateColumns: 'auto 1fr auto',
   padding: '1rem',
+});
+
+const statsStyle = css({
+  borderTop: '1px solid #dee2e6',
+  display: 'flex',
+  justifyContent: 'space-around',
+  padding: '1rem 1rem 0.25rem',
 });

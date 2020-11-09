@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import { css, cx } from 'emotion';
 
 export type SignedValueProps = React.HTMLAttributes<HTMLSpanElement> & {
   value: number;
@@ -8,13 +8,11 @@ export type SignedValueProps = React.HTMLAttributes<HTMLSpanElement> & {
 export function SignedValue(props: SignedValueProps) {
   const { value, className, ...spanProps } = props;
 
-  const cn = classnames(
-    {
-      'text-success': value > 0,
-      'text-danger': value < 0,
-    },
-    className,
-  );
+  const style = css({
+    color: value >= 0 ? 'var(--success)' : 'var(--danger)',
+  });
+
+  const cn = cx(style, className);
 
   return (
     <span className={cn} {...spanProps}>

@@ -6,6 +6,7 @@ img {
   max-width: 100%;
 }
 
+strong,
 .font-weight-bold,
 .h1,
 .h2,
@@ -14,4 +15,5 @@ img {
 .h5,
 .h6 {
   color: var(--dark);
+  font-weight: 600;
 }

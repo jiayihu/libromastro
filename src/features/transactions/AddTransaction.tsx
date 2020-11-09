@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { TCurrency, TTransaction, TTransactionPayload } from '../../types/transaction';
+import React, { useEffect, useState } from 'react';
+import { css, cx } from 'emotion';
+import {
+  TBankTransaction,
+  TCurrency,
+  TStockTransaction,
+  TTransaction,
+  TTransactionPayload,
+} from '../../types/transaction';
 import {
   Button,
   Col,
@@ -15,63 +22,78 @@ import {
 import { Currency } from '../../ui/Currency';
 import { assertNever } from '../../utils';
 
+function isStockTransaction(transaction: TTransactionPayload): transaction is TStockTransaction {
+  return transaction.type === 'BUY' || transaction.type === 'SELL';
+}
+
+const initialBankForm = (type: TBankTransaction['type']): TTransactionPayload => {
+  return {
+    type,
+    currency: 'USD',
+    date: new Date(),
+    amount: 0,
+  };
+};
+
+const initialStockForm = (type: TStockTransaction['type']): TTransactionPayload => {
+  return {
+    type,
+    currency: 'USD',
+    date: new Date(),
+    symbol: '',
+    amount: 0,
+    price: 0,
+  };
+};
+
 export type AddTransactionProps = {
+  transaction: TTransaction | null;
   onSubmit: (transaction: TTransactionPayload) => void;
 };
 
 export function AddTransaction(props: AddTransactionProps) {
-  const [type, setType] = useState<TTransaction['type']>('DEPOSIT');
+  const { transaction } = props;
   const types: Array<TTransaction['type']> = ['DEPOSIT', 'WITHDRAW', 'BUY', 'SELL'];
+  const currencies: TCurrency[] = ['USD', 'EUR'];
+  const [form, setForm] = useState<TTransactionPayload>(initialStockForm('BUY'));
 
-  const [currency, setCurrency] = useState<TTransaction['currency']>('USD');
-  const currencies: Array<TCurrency> = ['EUR', 'USD'];
+  useEffect(() => {
+    if (transaction) setForm(transaction);
+  }, [transaction]);
 
-  const [amount, setAmount] = useState(0);
+  const handleTypeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const type = e.target.value as TTransaction['type'];
 
-  const [symbol, setSymbol] = useState('');
-  const [price, setPrice] = useState(0);
-
-  const isStockTrans = type === 'BUY' || type === 'SELL';
-
-  const handleSubmit: React.FormEventHandler = (event) => {
-    event.preventDefault();
     switch (type) {
       case 'DEPOSIT':
       case 'WITHDRAW':
-        props.onSubmit({
-          type,
-          currency,
-          date: new Date(),
-          amount,
-        });
+        setForm(initialBankForm(type));
         break;
       case 'BUY':
       case 'SELL':
-        props.onSubmit({
-          type,
-          currency,
-          date: new Date(),
-          amount,
-          symbol,
-          price,
-        });
+        setForm(initialStockForm(type));
         break;
       default:
         assertNever(type);
     }
   };
 
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currency = e.target.value as TCurrency;
+    setForm({ ...form, currency });
+  };
+
+  const handleSubmit: React.FormEventHandler = (event) => {
+    event.preventDefault();
+    props.onSubmit(form);
+  };
+
   return (
     <div>
-      <Form className="border p-3 rounded shadow-sm" onSubmit={handleSubmit}>
-        <Row form className="mb-3">
+      <Form className={cx(formStyle, 'shadow-sm')} onSubmit={handleSubmit}>
+        <Row form className={css({ marginBottom: '1rem' })}>
           <Col>
-            <CustomInput
-              type="select"
-              id="type"
-              value={type}
-              onChange={(e) => setType(e.target.value as TTransaction['type'])}
-            >
+            <CustomInput type="select" id="type" value={form.type} onChange={handleTypeChange}>
               {types.map((type) => (
                 <option value={type} key={type}>
                   {type}
@@ -86,8 +108,8 @@ export function AddTransaction(props: AddTransactionProps) {
               <CustomInput
                 type="select"
                 id="currency"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value as TTransaction['currency'])}
+                value={form.currency}
+                onChange={handleCurrencyChange}
               >
                 {currencies.map((currency) => (
                   <option value={currency} key={currency}>
@@ -103,13 +125,13 @@ export function AddTransaction(props: AddTransactionProps) {
                 <Input
                   type="number"
                   placeholder="Amount"
-                  value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  value={form.amount}
+                  onChange={(e) => setForm({ ...form, amount: Number(e.target.value) })}
                 />
-                {!isStockTrans ? (
+                {!isStockTransaction(form) ? (
                   <InputGroupAddon addonType="append">
                     <InputGroupText>
-                      <Currency name={currency} />
+                      <Currency name={form.currency} />
                     </InputGroupText>
                   </InputGroupAddon>
                 ) : null}
@@ -117,7 +139,7 @@ export function AddTransaction(props: AddTransactionProps) {
             </FormGroup>
           </Col>
         </Row>
-        {isStockTrans ? (
+        {isStockTransaction(form) ? (
           <Row form>
             <Col>
               <FormGroup>
@@ -125,8 +147,8 @@ export function AddTransaction(props: AddTransactionProps) {
                   type="text"
                   id="symbol"
                   placeholder="Ticker (e.g. IBM)"
-                  value={symbol}
-                  onChange={(e) => setSymbol(e.target.value)}
+                  value={form.symbol}
+                  onChange={(e) => setForm({ ...form, symbol: e.target.value })}
                 />
               </FormGroup>
             </Col>
@@ -136,12 +158,12 @@ export function AddTransaction(props: AddTransactionProps) {
                   <Input
                     type="number"
                     placeholder="Price"
-                    value={price}
-                    onChange={(e) => setPrice(Number(e.target.value))}
+                    value={form.price}
+                    onChange={(e) => setForm({ ...form, price: Number(e.target.value) })}
                   />
                   <InputGroupAddon addonType="append">
                     <InputGroupText>
-                      <Currency name={currency} />
+                      <Currency name={form.currency} />
                     </InputGroupText>
                   </InputGroupAddon>
                 </InputGroup>
@@ -150,10 +172,10 @@ export function AddTransaction(props: AddTransactionProps) {
           </Row>
         ) : null}
         <Row>
-          {isStockTrans ? (
+          {isStockTransaction(form) ? (
             <Col>
               <div>
-                Total: <Currency name={currency}>{amount * price}</Currency>
+                Total: <Currency name={form.currency}>{form.amount * form.price}</Currency>
               </div>
             </Col>
           ) : null}
@@ -165,3 +187,9 @@ export function AddTransaction(props: AddTransactionProps) {
     </div>
   );
 }
+
+const formStyle = css({
+  border: '1px solid #dee2e6',
+  padding: '1rem',
+  borderRadius: '0.25rem',
+});

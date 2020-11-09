@@ -1,13 +1,13 @@
-import './App.css';
 import React from 'react';
+import { css } from 'emotion';
 import { Route, Switch } from 'react-router-dom';
-import { Transactions } from '../features/transactions/Transactions';
-import { Navigation } from '../features/navigation/Navigation';
-import { DashboardShell } from '../features/dashboard/DashboardShell';
+import { Transactions } from './features/transactions/Transactions';
+import { Navigation } from './features/navigation/Navigation';
+import { DashboardShell } from './features/dashboard/DashboardShell';
 
 export function App() {
   return (
-    <div className="app">
+    <div className={style}>
       <Switch>
         <Route path="/" exact>
           <DashboardShell />
@@ -23,3 +23,9 @@ export function App() {
     </div>
   );
 }
+
+const style = css({
+  display: 'grid',
+  gridTemplateRows: '1fr',
+  height: '100vh',
+});
