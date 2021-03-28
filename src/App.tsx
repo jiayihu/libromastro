@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { Route, Switch } from 'react-router-dom';
 import { Transactions } from './features/transactions/Transactions';
 import { Navigation } from './features/navigation/Navigation';

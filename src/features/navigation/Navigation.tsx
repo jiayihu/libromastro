@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { NavLink } from 'react-router-dom';
 import { Nav, Navbar, NavItem } from 'reactstrap';
 import { Icons } from '../../ui/Icons';

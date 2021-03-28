@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import { TStockQuote } from '../../types/stock';
 import { TStockStatus } from '../../types/transaction';
 import { CurrentCurrency } from '../../ui/CurrentCurrency';

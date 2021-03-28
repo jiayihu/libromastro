@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { Container } from 'reactstrap';
 import { getTransactions, postTransaction } from '../../services/transactions';
 import { TTransaction, TTransactionPayload } from '../../types/transaction';
@@ -27,7 +27,11 @@ export function Transactions() {
 
   const handleAddTransaction = (transaction: TTransactionPayload) => {
     postTransaction(transaction).then((result) => {
-      if (result) dispatch(setTransactions([result, ...transactions]));
+      if (result) {
+        const currentTrans = transactions ? transactions : [];
+
+        dispatch(setTransactions([result, ...currentTrans]));
+      }
     });
   };
 

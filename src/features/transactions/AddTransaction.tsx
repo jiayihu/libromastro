@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import {
   TBankTransaction,
   TCurrency,

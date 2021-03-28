@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'reactstrap';
 import { getTransactions } from '../../services/transactions';

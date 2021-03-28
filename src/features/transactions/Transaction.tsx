@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { isStockTransaction, TTransaction } from '../../types/transaction';
 import { Currency } from '../../ui/Currency';
 import { Datetime } from '../../ui/Datetime';

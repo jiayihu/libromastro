@@ -1,5 +1,5 @@
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 export type StockLogoProps = React.ImgHTMLAttributes<HTMLImageElement> & {
   symbol: string;

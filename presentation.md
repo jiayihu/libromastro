@@ -1496,7 +1496,7 @@ img.transaction-logo {
 # 1. Global namespace
 
 ```js
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 
 const btnStyle = css({
   display: 'inline-block',
@@ -1517,7 +1517,7 @@ const btnStyle = css({
 # 2. Dependencies
 
 ```js
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 import { theme } from './theme';
 import { navLinkStyle } from 'bootstrap';
 
@@ -1563,7 +1563,7 @@ const textStyle = css({
 # 5. Constants
 
 ```js
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { theme } from './theme';
 
 const navStyle = css({
@@ -1623,7 +1623,7 @@ const imgStyle = css({
 
 ```js
 import React from 'react';
-import { css, cx } from 'emotion';
+import { css, cx } from '@emotion/css';
 
 export type SignedValueProps =  {
   value: number;

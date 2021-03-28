@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { css } from 'emotion';
+import { css } from '@emotion/css';
 import { getStockQuotes } from '../../services/stock';
 import { TStockQuotesMap } from '../../types/stock';
 import {
