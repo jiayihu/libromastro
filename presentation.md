@@ -61,25 +61,25 @@ Front-end developer & consultant
 ```json
 {
   "compilerOptions": {
-"target": "es5",
-"lib": [
-  "esnext",
-  "DOM",
-  "DOM.Iterable"
-],
-"allowJs": true,
-"skipLibCheck": true,
-"esModuleInterop": true,
-"allowSyntheticDefaultImports": true,
-"noUnusedLocals": true,
-"noUnusedParameters": true,
-"strict": true,
-"forceConsistentCasingInFileNames": true,
-"module": "commonjs",
-"moduleResolution": "node",
-"resolveJsonModule": true,
-"noEmit": true,
-"jsx": "react"
+    "target": "es5",
+    "lib": [
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react"
   }
 }
 ```
@@ -800,23 +800,16 @@ type UserWithAge = User & WithAge
 
 ---
 
-# Who uses Redux?
-
-- Netflix
-- Paypal
-- Sky
-- Twitter
-- Khan Academy
-- Mozilla
-
----
-
 # Problemi senza Redux
 
 ![right 100%](./images/nested-view.svg)
   
 - Communicazione tra componenti
 - Passaggio di dati ed API a più componenti
+
+---
+
+![](./images/connected.svg)
 
 ---
 
@@ -1034,26 +1027,26 @@ const state = {
 ---
 
 ```jsx
-const AddressContext = createContext();
+const CurrencyContext = createContext();
 
-export function useAddress() {
-  const address = useContext(AddressContext);
+export function useCurrency() {
+  const currency = useContext(CurrencyContext);
 
-  if (!address) {
-    throw new Error('Cannot be used outside of a CartProvider');
+  if (!currency) {
+    throw new Error('Cannot be used outside of a CurrencyProvider');
   }
 
-  return address;
+  return currency;
 }
 
-export function AddressProvider(props) {
-  const [address, setAddress] = useState(null);
-  const value = useMemo(() => [address, setAddress], [address]);
+export function CurrencyProvider(props) {
+  const [currency, setCurrency] = useState(null);
+  const value = useMemo(() => [currency, setCurrency], [currency]);
 
   return (
-    <AddressContext.Provider value={value} {...props}>
+    <CurrencyContext.Provider value={value} {...props}>
       {props.children}
-    </AddressContext.Provider>
+    </CurrencyContext.Provider>
   );
 }
 ```
@@ -1075,32 +1068,6 @@ export function AddressProvider(props) {
 # With Redux
 
 ![inline](images/container-components.png)
-
----
-
-# Compromessi
-  
-- Descrivere l'application state come semplici objects e arrays
-- Descrivere le modifiche come semplici objects
-- Gestione delle modifiche allo state con funzioni pure
-- Prolisso
-
----
-
-# Vantaggi derivanti dei compromessi
-  
-- Facilità persistere e reidratare lo state
-- State corrente + actions = + facile debugging
-- Undo/Redo e optimistic mutations
-- Riutilizzo della logica di business
-
----
-
-![](./images/connected.svg)
-
----
-
-# Integrazione Redux in React
 
 ---
 
@@ -1306,6 +1273,378 @@ const operationsReducer = combineReducers({
   deposits: depositsReducer,
   withdraws: withdrawsReducer,
 });
+```
+
+---
+
+# CSS-in-JS
+
+---
+
+# Issues with CSS at scale (@vjeux)
+
+1. Global namespace
+2. Dependencies
+3. Dead code
+4. Minification
+5. Sharing constants
+6. Non-determinism
+7. Isolation
+
+---
+
+```css
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+```
+
+---
+
+# 1. Global namespace
+
+```css
+.btn {
+}
+
+.btn-primary {
+}
+```
+
+---
+
+# CSS methodologies - BEM
+
+```css
+.btn {
+}
+
+.btn--primary {
+}
+
+.btn__text {}
+```
+
+---
+
+# 2. Dependencies
+
+```scss
+$primary: $blue;
+$secondary: $gray-900;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-200;
+$dark: $gray-800;
+
+$body-bg: $gray-200;
+$body-color: $gray-600;
+
+$input-btn-padding-y: 0.125rem;
+
+@import 'bootstrap/scss/bootstrap.scss';
+```
+
+---
+
+# Dependencies
+
+```css
+.app-nav {
+  background-color: var(--light);
+}
+
+.app-nav .nav-link {
+  color: var(--dark);
+}
+```
+
+---
+
+# 3. Dead code elimination
+
+```css
+.app-nav {
+  background-color: var(--light);
+}
+
+.app-nav .nav-link {
+  color: var(--dark);
+}
+```
+
+---
+
+# 4. Minification
+
+![inline](images/minification.png)
+
+---
+
+# 5. Constants
+
+```css
+.btn {
+  color: #212529;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+```
+
+---
+
+# 6. Non-deterministic resolution
+
+```html
+<img className="stock-logo transaction-logo" />
+```
+
+```css
+.stock-logo {
+  align-items: center,
+  display: flex,
+  justify-content: center,
+  height: 50,
+  overflow: hidden,
+  text-align: center,
+  width: 50,
+}
+```
+
+```css
+.transaction-logo {
+  background-color: var(--light);
+}
+```
+
+---
+
+# 6. Non-deterministic resolution
+
+```css
+img.transaction-logo {
+  background-color: var(--light);
+}
+
+.stock-logo {
+  align-items: center,
+  display: flex,
+  justify-content: center,
+  height: 50,
+  overflow: hidden,
+  text-align: center,
+  width: 50,
+}
+```
+
+---
+
+# 7. Breaking isolation
+
+```css
+.app-nav .nav-link {
+  color: var(--dark);
+}
+```
+
+```css
+.my-modal .modal-title {
+  font-size: 2rem;
+}
+```
+
+---
+
+# CSS-in-JS
+
+- Build-time
+  - CSS Modules
+  - Treat
+- Inline styles
+  - Radium
+- Dynamic classNames
+  - Styled-components
+  - Emotion
+
+---
+
+# 1. Global namespace
+
+```js
+import { css } from 'emotion';
+
+const btnStyle = css({
+  display: 'inline-block',
+  fontWeight: 400,
+  color: '#212529',
+  textAlign: 'center',
+  backgroundColor: 'transparent',
+  border: '1px solid transparent',
+  padding: '.375rem .75rem',
+  fontSize: '1rem',
+  lineHeight: 1.5,
+  borderRadius: '.25rem',
+});
+```
+
+---
+
+# 2. Dependencies
+
+```js
+import { css, cx } from 'emotion';
+import { theme } from './theme';
+import { navLinkStyle } from 'bootstrap';
+
+const navStyle = css({
+  backgroundColor: theme.colors.light;
+})
+
+const navLinkStyle = cx(navLinkStyle, css({
+  color: theme.colors.dark
+}))
+```
+
+---
+
+# 3. Dead code elimination
+
+![inline](images/dead-code.png)
+
+---
+
+# 4. Minification
+
+```js
+const btnStyle = css({
+  color: theme.colors.success;
+})
+```
+
+```js
+const textStyle = css({
+  color: theme.colors.success;
+})
+```
+
+```css
+.css-w7jr6 {
+  color: var(--success);
+}
+```
+
+---
+
+# 5. Constants
+
+```js
+import { css } from 'emotion';
+import { theme } from './theme';
+
+const navStyle = css({
+  backgroundColor: theme.colors.light;
+})
+```
+
+---
+
+# 6. Non-deterministic resolution
+
+```jsx
+<img className={cx(stockLogoStyle, transactionLogoStyle)} />
+```
+
+```js
+const stockLogoStyle = css({
+  alignItems: 'center',
+  display: flex,
+  justifyContent: 'center',
+  height: 50,
+  overflow: 'hidden',
+  textAlign: 'center',
+  width: 50,
+})
+```
+
+```js
+const transactionLogoStyle =  css({
+  backgroundColor: theme.colors.light;
+})
+```
+
+---
+
+# 7. Breaking isolation
+
+```js
+const stockLogoStyle = css({
+  alignItems: 'center',
+  display: 'flex',
+  justifyContent: 'center',
+  height: 50,
+  overflow: 'hidden',
+  textAlign: 'center',
+  width: 50,
+})
+
+const imgStyle = css({
+  width: '75%'
+})
+```
+
+---
+
+# 8. Dynamic styles
+
+```js
+import React from 'react';
+import { css, cx } from 'emotion';
+
+export type SignedValueProps =  {
+  value: number;
+};
+
+export function SignedValue(props: SignedValueProps) {
+  const { value, className, ...spanProps } = props;
+
+  const style = css({
+    color: value >= 0 ? 'var(--success)' : 'var(--danger)',
+  });
+
+  const cn = cx(style, className);
+
+  return (
+    <span className={cn} {...spanProps}>
+      {value > 0 ? '+' : '-'}
+      {props.children}
+    </span>
+  );
+}
 ```
 
 ---
